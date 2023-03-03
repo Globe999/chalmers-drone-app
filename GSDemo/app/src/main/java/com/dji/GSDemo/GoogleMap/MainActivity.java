@@ -34,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.chalmers_button:
                 System.out.println("WE GOT IT TO WORK!");
                 startActivity(MainActivity.this, ChalmersDemo.class);
+                break;
+            case R.id.chalmers_image_button:
+                System.out.println("GGWP!");
+                startActivity(MainActivity.this, TrackingTestActivity.class);
+                break;
 
         }
     };
@@ -46,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_waypoint2).setOnClickListener(clickListener);
         findViewById(R.id.btn_maestro).setOnClickListener(clickListener);
         findViewById(R.id.chalmers_button).setOnClickListener(clickListener);
+        findViewById(R.id.chalmers_image_button).setOnClickListener(clickListener);
 
         Button mButton = (Button)findViewById(R.id.btn_waypoint1);
         mButton.setEnabled(false);

@@ -7,6 +7,17 @@
     tools:context="com.dji.GSDemo.GoogleMap.MainActivity">
 
     <Button
+        android:id="@+id/chalmers_button"
+        android:layout_width="169dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="121dp"
+        android:layout_marginTop="17dp"
+        android:text="Use Chalmers Demo"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPosition1" />
+
+    <Button
         android:id="@+id/btn_maestro"
         android:layout_width="300dp"
         android:layout_height="55dp"
@@ -85,13 +96,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    chalmers
+
     <Button
-        android:id="@+id/chalmers_button"
+        android:id="@+id/chalmers_image_button"
         android:layout_width="169dp"
         android:layout_height="48dp"
-        android:layout_marginStart="121dp"
-        android:layout_marginTop="17dp"
-        android:text="Use Chalmers Demo"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="76dp"
+        android:text="Object detection"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPosition1" />

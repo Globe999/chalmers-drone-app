@@ -5,4 +5,7 @@
     <string name="product_information">Product Information</string>
     <string name="connection_loose">Status: No Product Connected</string>
     <string name="sdk_version">DJI SDK Version: %1$s</string>
+    <string name="push_info">Push Info</string>
+    <string name="title_activity_mainactivity">P4MissionsDemo</string>
+    <string name="title_activity_tracking_test">ActiveTrack Sample</string>
 </resources>
