@@ -82,7 +82,7 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
     private ConcurrentHashMap<Integer, MultiTrackingView> targetViewHashMap = new ConcurrentHashMap<>();
     private int trackingIndex = INVAVID_INDEX;
     private boolean isAutoSensingSupported = false;
-    private ActiveTrackMode startMode = ActiveTrackMode.TRACE;
+    private ActiveTrackMode startMode = ActiveTrackMode.SPOTLIGHT_PRO; //Ändrare .TRACE till .SPOTLIGHT_PRO för att vi bara vill att kameran ska röra sig
     private QuickShotMode quickShotMode = QuickShotMode.UNKNOWN;
 
     private boolean isDrawingRect = false;
@@ -246,7 +246,7 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
      */
     private double calcManhattanDistance(double point1X, double point1Y, double point2X,
                                          double point2Y) {
-        Log.wtf(TAG,"calcManhattanDistance");
+        Log.wtf("calcManhattanDistance: ","");
         return Math.abs(point1X - point2X) + Math.abs(point1Y - point2Y);
     }
 
@@ -293,6 +293,7 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
                     }
                 } else {
                     RectF rectF = getActiveTrackRect(mSendRectIV);
+
                     mActiveTrackMission = new ActiveTrackMission(rectF, startMode);
                     if (startMode == ActiveTrackMode.QUICK_SHOT) {
                         mActiveTrackMission.setQuickShotMode(quickShotMode);
@@ -328,7 +329,10 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
                                  final ConcurrentHashMap<Integer, MultiTrackingView> multiTrackinghMap) {
         Log.wtf(TAG, "getTrackingIndex");
         setResultToToast("getTrackingIndex");
+        //Log.wtf("MultiTrackinghMap: ", multiTrackinghMap.toString());
         if (multiTrackinghMap == null || multiTrackinghMap.isEmpty()) {
+            Log.wtf("MultiTrackinghMap: ", "MultiTrackingMap is Null or Empty");
+            //setResultToToast("MultiTrackinghMap: " + multiTrackinghMap.toString());
             return INVAVID_INDEX;
         }
 
@@ -355,6 +359,7 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
         }
         switch (v.getId()) {
             case R.id.recommended_configuration_btn:
+                Log.wtf("recommended_configuration_btn: ", "Start the tracking operator");
                 mActiveTrackOperator.setRecommendedConfiguration(new CompletionCallback() {
                     @Override
                     public void onResult(DJIError error) {
@@ -466,13 +471,13 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, final boolean isChecked) {
-        Log.wtf(TAG, "onCheckedChanged");
+        Log.wtf("onCheckedChanged: ", "Changed some of the configurations");
         if (mActiveTrackOperator == null) {
             return;
         }
         switch (compoundButton.getId()) {
             case R.id.set_multitracking_enabled:
-                startMode = ActiveTrackMode.TRACE;
+                startMode = ActiveTrackMode.SPOTLIGHT_PRO; //Ändrare .TRACE till .SPOTLIGHT_PRO för att vi bara vill att kameran ska röra sig
                 quickShotMode = QuickShotMode.UNKNOWN;
                 setAutoSensingEnabled(isChecked);
                 break;
@@ -525,8 +530,6 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
 
     @Override
     public void onUpdate(ActiveTrackMissionEvent event) {
-        Log.wtf(TAG, "onUpdate");
-        setResultToToast("onUpdate");
         StringBuffer sb = new StringBuffer();
         String errorInformation = (event.getError() == null ? "null" : event.getError().getDescription()) + "\n";
         String currentState = event.getCurrentState() == null ? "null" : event.getCurrentState().getName();
@@ -534,6 +537,7 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
 
         ActiveTrackTargetState targetState = ActiveTrackTargetState.UNKNOWN;
         if (event.getTrackingState() != null) {
+            Log.wtf("onUpdate: ", "Tracking state is confirmed!!");
             targetState = event.getTrackingState().getState();
         }
         Utils.addLineToSB(sb, "CurrentState: ", currentState);
@@ -593,8 +597,6 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
      * @param event
      */
     private void updateActiveTrackRect(final ImageView iv, final ActiveTrackMissionEvent event) {
-        Log.wtf(TAG, "updateActiveTrackRect");
-        setResultToToast("updateActiveTrackRect");
         if (iv == null || event == null) {
             return;
         }
@@ -620,6 +622,7 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
 
     private void updateButtonVisibility(final ActiveTrackMissionEvent event) {
         ActiveTrackState state = event.getCurrentState();
+        Log.wtf("updateButtonVisibilty: ", state.toString());
         if (state == ActiveTrackState.AUTO_SENSING ||
                 state == ActiveTrackState.AUTO_SENSING_FOR_QUICK_SHOT ||
                 state == ActiveTrackState.WAITING_FOR_CONFIRMATION) {
@@ -696,8 +699,7 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
      */
     private void postResultRect(final ImageView iv, final RectF rectF,
                                 final ActiveTrackTargetState targetState) {
-        Log.wtf(TAG, "postResultRect");
-        setResultToToast("postResultRect");
+
         View parent = (View) iv.getParent();
         RectF trackingRect = rectF;
 
@@ -709,7 +711,7 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
 
             @Override
             public void run() {
-                Log.wtf(TAG, targetState.toString());
+                Log.wtf("postResultRect: ", targetState.toString());
                 mTrackingImage.setVisibility(View.VISIBLE);
                 if ((targetState == ActiveTrackTargetState.CANNOT_CONFIRM)
                         || (targetState == ActiveTrackTargetState.UNKNOWN)) {
@@ -739,7 +741,6 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
      */
     private void postMultiResultRect(final MultiTrackingView iv, final RectF rectF,
                                      final SubjectSensingState information) {
-        Log.wtf(TAG, "postMultiResultRect");
         View parent = (View) iv.getParent();
         RectF trackingRect = rectF;
 
@@ -769,6 +770,7 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
      * @param targetSensingInformations
      */
     private void updateMultiTrackingView(final SubjectSensingState[] targetSensingInformations) {
+        Log.wtf("updateMultiTrackingView: ", "Currently running multiple events");
         ArrayList<Integer> indexs = new ArrayList<>();
         for (SubjectSensingState target : targetSensingInformations) {
             indexs.add(target.getIndex());
@@ -813,7 +815,7 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
     private void setAutoSensingEnabled(final boolean isChecked) {
         if (mActiveTrackOperator != null) {
             if (isChecked) {
-                startMode = ActiveTrackMode.TRACE;
+                startMode = ActiveTrackMode.SPOTLIGHT_PRO; //Ändrare .TRACE till .SPOTLIGHT_PRO för att vi bara vill att kameran ska röra sig
                 mActiveTrackOperator.enableAutoSensing(new CompletionCallback() {
                     @Override
                     public void onResult(DJIError error) {
@@ -896,7 +898,9 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
      * Confim Mission by Index
      */
     private void startAutoSensingMission() {
+        Log.wtf("startAutoSensingMission:", "Check if trackIndex is valid...");
         if (trackingIndex != INVAVID_INDEX) {
+            Log.wtf("startAutoSensingMission:", "trackIndex valid!!!");
             ActiveTrackMission mission = new ActiveTrackMission(null, startMode);
             mission.setQuickShotMode(quickShotMode);
             mission.setTargetIndex(trackingIndex);
