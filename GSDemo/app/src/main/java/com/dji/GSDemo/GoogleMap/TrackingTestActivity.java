@@ -2,6 +2,7 @@ package com.dji.GSDemo.GoogleMap;
 
 import dji.common.camera.SettingsDefinitions;
 import dji.common.error.DJIError;
+import dji.common.mission.activetrack.ActiveTrackCannotConfirmReason;
 import dji.common.mission.activetrack.ActiveTrackMission;
 import dji.common.mission.activetrack.ActiveTrackMissionEvent;
 import dji.common.mission.activetrack.ActiveTrackMode;
@@ -82,7 +83,8 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
     private ConcurrentHashMap<Integer, MultiTrackingView> targetViewHashMap = new ConcurrentHashMap<>();
     private int trackingIndex = INVAVID_INDEX;
     private boolean isAutoSensingSupported = false;
-    private ActiveTrackMode startMode = ActiveTrackMode.SPOTLIGHT_PRO; //Ändrare .TRACE till .SPOTLIGHT_PRO för att vi bara vill att kameran ska röra sig
+    private ActiveTrackMode startMode = ActiveTrackMode.TRACE; //Ändrare .TRACE till .SPOTLIGHT för att vi bara vill att kameran ska röra sig
+    // UPDATE: Detta funkade inte så just nu vinklar sig drönaren men man manuellt styr drönaren vart den ska åka
     private QuickShotMode quickShotMode = QuickShotMode.UNKNOWN;
 
     private boolean isDrawingRect = false;
@@ -260,8 +262,8 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                Log.wtf(TAG, "Action_Move");
-                setResultToToast("Action_Move");
+                Log.wtf("Action_Move", "Currently drawing rectangle");
+                //setResultToToast("Action_Move");
                 if (calcManhattanDistance(downX, downY, event.getX(), event.getY()) < MOVE_OFFSET && !isDrawingRect) {
                     trackingIndex = getTrackingIndex(downX, downY, targetViewHashMap);
                     if (targetViewHashMap.get(trackingIndex) != null) {
@@ -296,8 +298,9 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
 
                     mActiveTrackMission = new ActiveTrackMission(rectF, startMode);
                     if (startMode == ActiveTrackMode.QUICK_SHOT) {
+                        Log.wtf("StartMode", "ActiveTrackMode is set to QUICK_SHOT");
                         mActiveTrackMission.setQuickShotMode(quickShotMode);
-                        checkStorageStates();
+                        //checkStorageStates();
                     }
                     mActiveTrackOperator.startTracking(mActiveTrackMission, new CommonCallbacks.CompletionCallback() {
                         @Override
@@ -477,14 +480,15 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
         }
         switch (compoundButton.getId()) {
             case R.id.set_multitracking_enabled:
-                startMode = ActiveTrackMode.SPOTLIGHT_PRO; //Ändrare .TRACE till .SPOTLIGHT_PRO för att vi bara vill att kameran ska röra sig
+                startMode = ActiveTrackMode.TRACE;  //Ändrare .TRACE till .SPOTLIGHT för att vi bara vill att kameran ska röra sig.
+                // UPDATE: Detta funkade inte så just nu vinklar sig drönaren men man manuellt styr drönaren vart den ska åka
                 quickShotMode = QuickShotMode.UNKNOWN;
                 setAutoSensingEnabled(isChecked);
                 break;
             case R.id.set_multiquickshot_enabled:
                 startMode = ActiveTrackMode.QUICK_SHOT;
                 quickShotMode = QuickShotMode.CIRCLE;
-                checkStorageStates();
+                //checkStorageStates();
                 setAutoSensingForQuickShotEnabled(isChecked);
                 break;
             case R.id.tracking_pull_back_tb:
@@ -562,8 +566,10 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
                         Utils.addLineToSB(sb, "Rect Width: ", trackingRect.width());
                         Utils.addLineToSB(sb, "Rect Height: ", trackingRect.height());
                         Utils.addLineToSB(sb, "Reason", trackingState.getReason().name());
+                        Log.wtf("Get Reason", trackingState.getReason().name());
                         Utils.addLineToSB(sb, "Target Index: ", subjectSensingState.getIndex());
                         Utils.addLineToSB(sb, "Target Type", subjectSensingState.getTargetType().name());
+                        Log.wtf("Target Type", subjectSensingState.getTargetType().name());
                         Utils.addLineToSB(sb, "Target State", subjectSensingState.getState().name());
                         isAutoSensingSupported = true;
                     }
@@ -576,8 +582,10 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
                     Utils.addLineToSB(sb, "Rect Width: ", trackingRect.width());
                     Utils.addLineToSB(sb, "Rect Height: ", trackingRect.height());
                     Utils.addLineToSB(sb, "Reason", trackingState.getReason().name());
+                    Log.wtf("Get Reason", trackingState.getReason().name());
                     Utils.addLineToSB(sb, "Target Index: ", trackingState.getTargetIndex());
                     Utils.addLineToSB(sb, "Target Type", trackingState.getType().name());
+                    Log.wtf("Target Type", trackingState.getType().name());
                     Utils.addLineToSB(sb, "Target State", trackingState.getState().name());
                     isAutoSensingSupported = false;
                 }
@@ -708,7 +716,6 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
         final int r = (int) ((trackingRect.centerX() + trackingRect.width() / 2) * parent.getWidth());
         final int b = (int) ((trackingRect.centerY() + trackingRect.height() / 2) * parent.getHeight());
         TrackingTestActivity.this.runOnUiThread(new Runnable() {
-
             @Override
             public void run() {
                 Log.wtf("postResultRect: ", targetState.toString());
@@ -815,7 +822,8 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
     private void setAutoSensingEnabled(final boolean isChecked) {
         if (mActiveTrackOperator != null) {
             if (isChecked) {
-                startMode = ActiveTrackMode.SPOTLIGHT_PRO; //Ändrare .TRACE till .SPOTLIGHT_PRO för att vi bara vill att kameran ska röra sig
+                startMode = ActiveTrackMode.TRACE; //Ändrare .TRACE till .SPOTLIGHT för att vi bara vill att kameran ska röra sig
+                // UPDATE: Detta funkade inte så just nu vinklar sig drönaren men man manuellt styr drönaren vart den ska åka
                 mActiveTrackOperator.enableAutoSensing(new CompletionCallback() {
                     @Override
                     public void onResult(DJIError error) {
@@ -922,6 +930,8 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
     /**
      * Change Storage Location
      */
+
+
     private void switchStorageLocation(final SettingsDefinitions.StorageLocation storageLocation) {
         KeyManager keyManager = KeyManager.getInstance();
         DJIKey storageLoactionkey = CameraKey.create(CameraKey.CAMERA_STORAGE_LOCATION, MAIN_CAMERA_INDEX);
@@ -953,12 +963,16 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
         }
     }
 
+
     /**
      * determine SD Card is or not Ready
      *
      * @param index
      * @return
      */
+
+
+
     private boolean isSDCardReady(int index) {
         Log.wtf(TAG, "isSDCardReady");
         KeyManager keyManager = KeyManager.getInstance();
@@ -976,12 +990,16 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
                 && (Integer) keyManager.getValue(CameraKey.create(CameraKey.SDCARD_AVAILABLE_RECORDING_TIME_IN_SECONDS, index)) > 0);
     }
 
+
+
     /**
      * determine Interal Storage is or not Ready
      *
      * @param index
      * @return
      */
+
+
     private boolean isInteralStorageReady(int index) {
         Log.wtf(TAG, "isInteralStorageReady");
         KeyManager keyManager = KeyManager.getInstance();
@@ -1004,9 +1022,13 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
         return false;
     }
 
+
+
     /**
      * Check Storage States
      */
+
+
     private void checkStorageStates() {
         Log.wtf(TAG, "checkStorageStates");
         KeyManager keyManager = KeyManager.getInstance();
@@ -1049,9 +1071,12 @@ public class TrackingTestActivity extends DemoBaseActivity implements SurfaceTex
         }
     }
 
+
+
     /**
      * Clear MultiTracking View
      */
+
     private void clearCurrentView() {
         if (targetViewHashMap != null && !targetViewHashMap.isEmpty()) {
             Iterator<Map.Entry<Integer, MultiTrackingView>> it = targetViewHashMap.entrySet().iterator();
