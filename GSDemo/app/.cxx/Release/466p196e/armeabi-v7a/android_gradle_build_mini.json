@@ -1,0 +1,81 @@
+{
+  "buildFiles": [
+    "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/466p196e/armeabi-v7a/_deps/googletest-src/CMakeLists.txt",
+    "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/466p196e/armeabi-v7a/_deps/googletest-src/googlemock/CMakeLists.txt",
+    "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/466p196e/armeabi-v7a/_deps/googletest-src/googletest/CMakeLists.txt",
+    "/home/johan/DJI_app/util/C/iso22133/CMakeLists.txt",
+    "/home/johan/DJI_app/util/C/isoObject/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/johan/Android/Sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/466p196e/armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/johan/Android/Sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/466p196e/armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "ISO22133::@ec36ee61a2d018a05399": {
+      "artifactName": "ISO22133",
+      "abi": "armeabi-v7a",
+      "output": "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/466p196e/obj/armeabi-v7a/libISO22133.so",
+      "runtimeFiles": []
+    },
+    "gtest_main::@1ea2dfc0605fe3ab2a3f": {
+      "artifactName": "gtest_main",
+      "abi": "armeabi-v7a",
+      "output": "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/466p196e/armeabi-v7a/lib/libgtest_main.a",
+      "runtimeFiles": []
+    },
+    "gmock::@0f7bb11d64f3678238c7": {
+      "artifactName": "gmock",
+      "abi": "armeabi-v7a",
+      "output": "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/466p196e/armeabi-v7a/lib/libgmock.a",
+      "runtimeFiles": []
+    },
+    "gmock_main::@0f7bb11d64f3678238c7": {
+      "artifactName": "gmock_main",
+      "abi": "armeabi-v7a",
+      "output": "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/466p196e/armeabi-v7a/lib/libgmock_main.a",
+      "runtimeFiles": []
+    },
+    "gtest::@1ea2dfc0605fe3ab2a3f": {
+      "artifactName": "gtest",
+      "abi": "armeabi-v7a",
+      "output": "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/466p196e/armeabi-v7a/lib/libgtest.a",
+      "runtimeFiles": []
+    },
+    "ISO_objectDemo::@6890427a1f51a3e7e1df": {
+      "artifactName": "ISO_objectDemo",
+      "abi": "armeabi-v7a",
+      "output": "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/466p196e/obj/armeabi-v7a/ISO_objectDemo",
+      "runtimeFiles": [
+        "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/466p196e/obj/armeabi-v7a/libISO_object.so",
+        "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/466p196e/obj/armeabi-v7a/libISO22133.so"
+      ]
+    },
+    "ISO_object::@6890427a1f51a3e7e1df": {
+      "artifactName": "ISO_object",
+      "abi": "armeabi-v7a",
+      "output": "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/466p196e/obj/armeabi-v7a/libISO_object.so",
+      "runtimeFiles": [
+        "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/466p196e/obj/armeabi-v7a/libISO22133.so"
+      ]
+    },
+    "isoObject_wrap::@6890427a1f51a3e7e1df": {
+      "artifactName": "isoObject_wrap",
+      "abi": "armeabi-v7a",
+      "output": "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/466p196e/obj/armeabi-v7a/libisoObject_wrap.so",
+      "runtimeFiles": [
+        "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/466p196e/obj/armeabi-v7a/libISO_object.so",
+        "/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/466p196e/obj/armeabi-v7a/libISO22133.so"
+      ]
+    }
+  }
+}

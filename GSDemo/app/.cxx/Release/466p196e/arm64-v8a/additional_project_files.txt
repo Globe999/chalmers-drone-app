@@ -1,0 +1,3 @@
+/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/466p196e/arm64-v8a/isoObject_wrap.java
+/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/466p196e/arm64-v8a/isoObject_wrapJNI.java
+/home/johan/DJI_app/util/C/isoObject/isoObject.i

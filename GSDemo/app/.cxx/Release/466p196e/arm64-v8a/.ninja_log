@@ -1,0 +1,26 @@
+# ninja log v5
+1	97	1681126876818441773	iso22133/CMakeFiles/ISO22133.dir/src/footer.c.o	e51d173b59b89847
+6	101	1681126876822441770	iso22133/CMakeFiles/ISO22133.dir/src/iohelpers.c.o	dd25c7f6eea8cfe4
+5	108	1681126876810441778	iso22133/CMakeFiles/ISO22133.dir/src/header.c.o	6826c2eb50c73bf4
+6	134	1681126876838441761	iso22133/CMakeFiles/ISO22133.dir/src/monr.c.o	c195813c92edae1a
+1	152	1681126876858441749	iso22133/CMakeFiles/ISO22133.dir/positioning.c.o	4243bda198857d6b
+108	192	1681126876902441723	iso22133/CMakeFiles/ISO22133.dir/src/timeconversions.c.o	e6e71e56e3ce95ba
+98	198	1681126876918441712	iso22133/CMakeFiles/ISO22133.dir/src/osem.c.o	5a755c8131100326
+101	206	1681126876926441708	iso22133/CMakeFiles/ISO22133.dir/src/ostm.c.o	e893e944556be415
+135	277	1681126876998441664	iso22133/CMakeFiles/ISO22133.dir/src/traj.c.o	a73562f8180ec9da
+1	544	1681126877262441505	iso22133/CMakeFiles/ISO22133.dir/iso22133.c.o	b8073fae757e5a40
+544	564	1681126877282441494	/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/466p196e/obj/arm64-v8a/libISO22133.so	c1074eadd0c9ca6a
+0	675	1681126877394441426	CMakeFiles/ISO_object.dir/src/trajDecoder.cpp.o	8eaeb474f830cfe2
+0	2395	1681126879106440402	CMakeFiles/ISO_objectDemo.dir/demoIsoObject.cpp.o	b24ae5a683cabfb1
+0	2615	1681126879326440271	CMakeFiles/ISO_object.dir/src/iso22133state.cpp.o	1ad78512de11ca5b
+0	4486	1681126881190439171	CMakeFiles/ISO_object.dir/src/iso22133object.cpp.o	7699982af7ddca57
+4486	4504	1681126881222439152	/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/466p196e/obj/arm64-v8a/libISO_object.so	5d73eb4453f41700
+4504	4516	1681126881234439145	/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/466p196e/obj/arm64-v8a/ISO_objectDemo	ac6c892ed64d913e
+4504	4947	1681126881666438893	CMakeFiles/isoObject_wrap.dir/isoObjectJAVA_wrap.cxx	dea588d0e4bd1609
+4504	4947	1681126881666438893	isoObject_wrap.java	dea588d0e4bd1609
+4504	4947	1681126881666438893	isoObject_wrapJNI.java	dea588d0e4bd1609
+4504	4947	1681126881666438893	/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/466p196e/arm64-v8a/CMakeFiles/isoObject_wrap.dir/isoObjectJAVA_wrap.cxx	dea588d0e4bd1609
+4504	4947	1681126881666438893	/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/466p196e/arm64-v8a/isoObject_wrap.java	dea588d0e4bd1609
+4504	4947	1681126881666438893	/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/466p196e/arm64-v8a/isoObject_wrapJNI.java	dea588d0e4bd1609
+4947	8364	1681126885070436923	CMakeFiles/isoObject_wrap.dir/CMakeFiles/isoObject_wrap.dir/isoObjectJAVA_wrap.cxx.o	ecb4cb3ea460ef9b
+8365	8385	1681126885106436903	/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/466p196e/obj/arm64-v8a/libisoObject_wrap.so	4ca2e56d3e3401d4

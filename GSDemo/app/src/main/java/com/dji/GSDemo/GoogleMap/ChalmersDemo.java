@@ -2,11 +2,17 @@ package com.dji.GSDemo.GoogleMap;
 
 import android.Manifest;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.SurfaceTexture;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Size;
+import android.util.TypedValue;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +29,9 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.dji.GSDemo.GoogleMap.customview.OverlayView;
+import com.dji.GSDemo.GoogleMap.deepmodel.MobileNetObjDetector;
+import com.dji.GSDemo.GoogleMap.utils.ImageUtils;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
@@ -39,6 +48,7 @@ import org.locationtech.proj4j.CoordinateTransform;
 import org.locationtech.proj4j.CoordinateTransformFactory;
 import org.locationtech.proj4j.ProjCoordinate;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -87,18 +97,44 @@ import dji.sdk.mission.waypoint.WaypointMissionOperatorListener;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
 
+//object detection
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.media.Image;
+import android.media.ImageReader;
+import android.media.ImageReader.OnImageAvailableListener;
+import android.os.Build;
+import android.util.Log;
+import android.util.Size;
+import android.util.TypedValue;
+import android.widget.Toast;
 
-public class ChalmersDemo extends FragmentActivity implements TextureView.SurfaceTextureListener, View.OnClickListener, WaypointMissionOperatorListener {
+import com.dji.GSDemo.GoogleMap.deepmodel.DetectionResult;
+import com.dji.GSDemo.GoogleMap.deepmodel.MobileNetObjDetector;
+import com.dji.GSDemo.GoogleMap.customview.OverlayView;
+import com.dji.GSDemo.GoogleMap.utils.ImageUtils;
+
+import java.io.IOException;
+import java.util.List;
+
+import com.dji.GSDemo.GoogleMap.customview.OverlayView;
+
+
+
+public class ChalmersDemo extends FragmentActivity implements TextureView.SurfaceTextureListener, View.OnClickListener, WaypointMissionOperatorListener/*, OnImageAvailableListener*/{
 
     private static final int MAIN_CAMERA_INDEX = 0;
     private static final int INVAVID_INDEX = -1;
     private static final int MOVE_OFFSET = 20;
     private static final String TAG = MainActivity.class.getName();
     public static WaypointMission.Builder waypointMissionBuilder;
+
     private final DJIKey trackModeKey = FlightControllerKey.createFlightAssistantKey(FlightControllerKey.ACTIVE_TRACK_MODE);
     public CRSFactory crsFactory = new CRSFactory();
     public CoordinateReferenceSystem WGS84 = crsFactory.createFromParameters("WGS84", "+proj=longlat +datum=WGS84 +no_defs");
-    protected VideoFeeder.VideoDataListener mReceivedVideoDataListener = null;
+    private VideoFeeder.VideoDataListener mReceivedVideoDataListener;
     View decorView;
     TextureView mVideoSurface;
     float mGimbalRoll;
@@ -117,6 +153,7 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
     private ArrayList<WaypointSetting> waypointSettings = new ArrayList<>();
     private ArrayList<Waypoint> waypointList = new ArrayList<>();
     private TextView text_gps, text_lat, text_lon, text_alt;
+
     private Button testcircle, config, upload, start, stop, land;
     private Button btn_atos_con, btn_drone_con, btn_ip_address, btn_drone_state, clear_wps;
 
@@ -126,6 +163,23 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
     private float altitude = 100.0f;
     private LatLng startLatLong;
     private boolean missionUploaded = false;
+
+    //object detection
+
+    private static int MODEL_IMAGE_INPUT_SIZE = 300;
+    private static String LOGGING_TAG = MainActivity.class.getName();
+    private static float TEXT_SIZE_DIP = 10;
+
+    private Integer sensorOrientation;
+    private int previewWidth = 0;
+    private int previewHeight = 0;
+    private MobileNetObjDetector objectDetector;
+    private Bitmap imageBitmapForModel = null;
+    private Bitmap rgbBitmapForCameraImage = null;
+    private boolean computing = false;
+    private Matrix imageTransformMatrix;
+
+    private OverlayView overlayView;
 
     public double getDroneLocationLat() {
         return droneLocationLat;
@@ -170,6 +224,9 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
         }
 
         super.onDestroy();
+        if (objectDetector != null) {
+            objectDetector.close();
+        }
 //        unregisterReceiver(mReceiver);
 //        removeListener();
     }
@@ -242,6 +299,8 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
         text_lat = (TextView) findViewById(R.id.text_lat);
         text_lon = (TextView) findViewById(R.id.text_lon);
         text_alt = (TextView) findViewById(R.id.text_alt);
+        mVideoSurface = (TextureView) findViewById(R.id.video_previewer_surface);
+
 
 
         testcircle = (Button) findViewById(R.id.testcircle);
@@ -447,18 +506,16 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
 //        registerReceiver(mReceiver, filter);
 
         initUI();
-
         mReceivedVideoDataListener = new VideoFeeder.VideoDataListener() {
             @Override
             public void onReceive(byte[] videoBuffer, int size) {
+                Log.wtf(TAG, "mCodecManager: "+mCodecManager.toString() + " videoBuffer: " + videoBuffer);
                 if (mCodecManager != null) {
                     mCodecManager.sendDataToDecoder(videoBuffer, size);
                 }
             }
         };
     }
-
-
     public void onExecutionUpdate(WaypointMissionExecutionEvent event) {
         // Handle execution updates here
         WaypointExecutionProgress progress = event.getProgress();
@@ -539,6 +596,7 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
 
     //For camera feed
     private void uninitPreviewer() {
+
         camera = DJIDemoApplication.getProductInstance().getCamera();
         if (camera != null) {
             // Reset the callback
@@ -1041,4 +1099,94 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
     }
 
 
+    /*
+    //Object detection
+    //@Override
+    public void onPreviewSizeChosen(final Size previewSize, final int rotation) {
+        Log.wtf("onPreviewSizeChosen", "onPreviewSizeChosen");
+        final float textSizePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                TEXT_SIZE_DIP, getResources().getDisplayMetrics());
+
+        try {
+            objectDetector = MobileNetObjDetector.create(getAssets());
+            Log.i(LOGGING_TAG, "Model Initiated successfully.");
+            Toast.makeText(getApplicationContext(), "MobileNetObjDetector created", Toast.LENGTH_SHORT).show();
+        } catch(IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "MobileNetObjDetector could not be created", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        overlayView = (OverlayView) findViewById(R.id.overlay);
+
+        final int screenOrientation = getWindowManager().getDefaultDisplay().getRotation();
+        //Sensor orientation: 90, Screen orientation: 0
+        sensorOrientation = rotation + screenOrientation;
+        Log.i(LOGGING_TAG, String.format("Camera rotation: %d, Screen orientation: %d, Sensor orientation: %d",
+                rotation, screenOrientation, sensorOrientation));
+
+        previewWidth = previewSize.getWidth();
+        previewHeight = previewSize.getHeight();
+
+        Log.i(LOGGING_TAG, "preview width: " + previewWidth);
+        Log.i(LOGGING_TAG, "preview height: " + previewHeight);
+        // create empty bitmap
+        imageBitmapForModel = Bitmap.createBitmap(MODEL_IMAGE_INPUT_SIZE, MODEL_IMAGE_INPUT_SIZE, Config.ARGB_8888);
+        rgbBitmapForCameraImage = Bitmap.createBitmap(previewWidth, previewHeight, Config.ARGB_8888);
+
+        imageTransformMatrix = ImageUtils.getTransformationMatrix(previewWidth, previewHeight,
+                MODEL_IMAGE_INPUT_SIZE, MODEL_IMAGE_INPUT_SIZE, sensorOrientation,true);
+        imageTransformMatrix.invert(new Matrix());
+    }
+
+    //@Override
+    public void onImageAvailable(final ImageReader reader) {
+        Log.wtf("OnImageAvailable", "OnImageAvailable");
+        Image imageFromCamera = null;
+
+        try {
+            imageFromCamera = reader.acquireLatestImage();
+            if (imageFromCamera == null) {
+                return;
+            }
+            if (computing) {
+                imageFromCamera.close();
+                return;
+            }
+            computing = true;
+            preprocessImageForModel(imageFromCamera);
+            imageFromCamera.close();
+        } catch (final Exception ex) {
+            if (imageFromCamera != null) {
+                imageFromCamera.close();
+            }
+            Log.e(LOGGING_TAG, ex.getMessage());
+        }
+
+        CameraActivity.runInBackground(() -> {
+            final List<DetectionResult> results = objectDetector.detectObjects(imageBitmapForModel);
+            Log.wtf("results",results + "");
+            overlayView.setResults(results);
+            //Log.i(LOGGING_TAG, results.get(0).toString());
+
+
+            CameraActivity.requestRender();
+            computing = false;
+        });
+    }
+
+    private void preprocessImageForModel(final Image imageFromCamera) {
+        Log.wtf("preprocessImageForModel", "preprocessImageForModel");
+        rgbBitmapForCameraImage.setPixels(ImageUtils.convertYUVToARGB(imageFromCamera, previewWidth, previewHeight),
+                0, previewWidth, 0, 0, previewWidth, previewHeight);
+
+        new Canvas(imageBitmapForModel).drawBitmap(rgbBitmapForCameraImage, imageTransformMatrix, null);
+    }
+*/
+
 }
+
+
+
+
+
+

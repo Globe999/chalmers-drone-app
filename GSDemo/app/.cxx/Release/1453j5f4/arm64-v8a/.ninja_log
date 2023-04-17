@@ -1,0 +1,13 @@
+# ninja log v5
+1	57	1680589571	iso22133/CMakeFiles/ISO22133.dir/src/header.c.o	7ebc9838521a9e10
+0	84	1680589571	iso22133/CMakeFiles/ISO22133.dir/positioning.c.o	109097afc6eb8ced
+0	85	1680589571	iso22133/CMakeFiles/ISO22133.dir/src/footer.c.o	72e431e06508bcbf
+4	101	1680589571	iso22133/CMakeFiles/ISO22133.dir/src/iohelpers.c.o	8299ab14b2dd1a7
+4	121	1680589571	iso22133/CMakeFiles/ISO22133.dir/src/monr.c.o	4287ce237b3512c4
+84	126	1680589571	iso22133/CMakeFiles/ISO22133.dir/src/ostm.c.o	806b2b04d0bc2811
+85	149	1680589571	iso22133/CMakeFiles/ISO22133.dir/src/timeconversions.c.o	72f79eca5ba46daa
+57	181	1680589571	iso22133/CMakeFiles/ISO22133.dir/src/osem.c.o	b238b7343c712f0e
+101	187	1680589571	iso22133/CMakeFiles/ISO22133.dir/src/traj.c.o	5524e8027ca52451
+0	323	1680589571	iso22133/CMakeFiles/ISO22133.dir/iso22133.c.o	d24426288061f5b1
+323	374	1680589571	/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/1453j5f4/obj/arm64-v8a/libISO22133.so	ae2fc5a95cb0089e
+0	861	1680589572	CMakeFiles/ISO_object.dir/src/trajDecoder.cpp.o	be42dfc84c3b8aa

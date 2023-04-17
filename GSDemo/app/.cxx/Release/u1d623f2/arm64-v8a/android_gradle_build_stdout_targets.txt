@@ -1,0 +1,205 @@
+ninja: Entering directory `/home/johan/DJI_app/chalmers-drone-app/GSDemo/app/.cxx/Release/u1d623f2/arm64-v8a'
+[1/20] Building C object iso22133/CMakeFiles/ISO22133.dir/src/header.c.o
+[2/20] Building C object iso22133/CMakeFiles/ISO22133.dir/src/iohelpers.c.o
+[3/20] Building C object iso22133/CMakeFiles/ISO22133.dir/src/footer.c.o
+[4/20] Building C object iso22133/CMakeFiles/ISO22133.dir/src/monr.c.o
+[5/20] Building C object iso22133/CMakeFiles/ISO22133.dir/positioning.c.o
+[6/20] Building C object iso22133/CMakeFiles/ISO22133.dir/src/ostm.c.o
+[7/20] Building C object iso22133/CMakeFiles/ISO22133.dir/src/timeconversions.c.o
+[8/20] Building C object iso22133/CMakeFiles/ISO22133.dir/src/osem.c.o
+/home/johan/DJI_app/util/C/iso22133/src/osem.c:163:6: warning: format specifies type 'char *' but the argument has type 'uint32_t' (aka 'unsigned int') [-Wformat]
+                                 OSEMData.timeserver.ip, OSEMData.timeserver.port);
+                                 ^~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+[9/20] Building C object iso22133/CMakeFiles/ISO22133.dir/src/traj.c.o
+/home/johan/DJI_app/util/C/iso22133/src/traj.c:97:3: warning: array index 64 is past the end of the array (which contains 64 elements) [-Warray-bounds]
+                TRAJData.trajectoryName[TRAJ_NAME_STRING_MAX_LENGTH] = '\0';
+                ^                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/johan/DJI_app/util/C/iso22133/include/traj.h:18:2: note: array 'trajectoryName' declared here
+        char trajectoryName[TRAJ_NAME_STRING_MAX_LENGTH];
+        ^
+/home/johan/DJI_app/util/C/iso22133/src/traj.c:526:63: warning: cast to 'unsigned char *' from smaller integer type 'char' [-Wint-to-pointer-cast]
+                for(int i = 0; i<sizeof(TRAJPointType); i ++) printf("%x-", (unsigned char*)trajDataBuffer[i]);
+                                                                            ^
+/home/johan/DJI_app/util/C/iso22133/src/traj.c:526:63: warning: format specifies type 'unsigned int' but the argument has type 'unsigned char *' [-Wformat]
+                for(int i = 0; i<sizeof(TRAJPointType); i ++) printf("%x-", (unsigned char*)trajDataBuffer[i]);
+                                                                      ~~    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                                                      %s
+3 warnings generated.
+[10/20] Building C object iso22133/CMakeFiles/ISO22133.dir/iso22133.c.o
+/home/johan/DJI_app/util/C/iso22133/iso22133.c:1210:25: warning: result of comparison of constant 65535 with expression of type 'int16_t' (aka 'short') is always true [-Wtautological-constant-out-of-range-compare]
+        if (RCMMData->steering != STEERING_ANGLE_UNAVAILABLE_VALUE && RCMMData->steeringValueID) {
+            ~~~~~~~~~~~~~~~~~~ ^  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/johan/DJI_app/util/C/iso22133/iso22133.c:1949:46: warning: format specifies type 'int' but the argument has type 'unsigned long' [-Wformat]
+                printf("PODI message data (size = %d):\n", sizeof (PODIType));
+                                                  ~~       ^~~~~~~~~~~~~~~~~
+                                                  %lu
+/home/johan/DJI_app/util/C/iso22133/iso22133.c:2217:46: warning: result of comparison of constant -32768 with expression of type 'uint16_t' (aka 'unsigned short') is always true [-Wtautological-constant-out-of-range-compare]
+        if (PODIData->rollValueID && PODIData->roll != ROLL_UNAVAILABLE_VALUE) {
+                                     ~~~~~~~~~~~~~~ ^  ~~~~~~~~~~~~~~~~~~~~~~
+/home/johan/DJI_app/util/C/iso22133/iso22133.c:2225:48: warning: result of comparison of constant -32768 with expression of type 'uint16_t' (aka 'unsigned short') is always true [-Wtautological-constant-out-of-range-compare]
+        if (PODIData->pitchValueID && PODIData->pitch != PITCH_UNAVAILABLE_VALUE) {
+                                      ~~~~~~~~~~~~~~~ ^  ~~~~~~~~~~~~~~~~~~~~~~~
+/home/johan/DJI_app/util/C/iso22133/iso22133.c:2519:46: warning: format specifies type 'int' but the argument has type 'unsigned long' [-Wformat]
+                printf("OPRO message data (size = %d):\n", sizeof (OPROType));
+                                                  ~~       ^~~~~~~~~~~~~~~~~
+                                                  %lu
+/home/johan/DJI_app/util/C/iso22133/iso22133.c:2621:46: warning: format specifies type 'int' but the argument has type 'unsigned long' [-Wformat]
+                printf("FOPR message data (size = %d):\n", sizeof (FOPRType));
+                                                  ~~       ^~~~~~~~~~~~~~~~~
+                                                  %lu
+/home/johan/DJI_app/util/C/iso22133/iso22133.c:2744:46: warning: format specifies type 'int' but the argument has type 'unsigned long' [-Wformat]
+                printf("FOPR message data (size = %d):\n", sizeof (FOPRType));
+                                                  ~~       ^~~~~~~~~~~~~~~~~
+                                                  %lu
+/home/johan/DJI_app/util/C/iso22133/iso22133.c:2983:47: warning: format specifies type 'int' but the argument has type 'unsigned long' [-Wformat]
+                 printf("GDRM message data (size = %d):\n", sizeof (GDRMType));
+                                                   ~~       ^~~~~~~~~~~~~~~~~
+                                                   %lu
+/home/johan/DJI_app/util/C/iso22133/iso22133.c:3150:46: warning: format specifies type 'int' but the argument has type 'unsigned long' [-Wformat]
+                printf("DCTI message data (size = %d):\n", sizeof (DCTIType));
+                                                  ~~       ^~~~~~~~~~~~~~~~~
+                                                  %lu
+/home/johan/DJI_app/util/C/iso22133/iso22133.c:3612:31: warning: result of comparison of constant 65535 with expression of type 'int16_t' (aka 'short') is always true [-Wtautological-constant-out-of-range-compare]
+        if (RDCAData->steeringAction != STEERING_ANGLE_UNAVAILABLE_VALUE && RDCAData->steeringActionValueID) {
+            ~~~~~~~~~~~~~~~~~~~~~~~~ ^  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/johan/DJI_app/util/C/iso22133/iso22133.c:3766:1: warning: control may reach end of non-void function [-Wreturn-type]
+}
+^
+11 warnings generated.
+[11/20] Linking C shared library /home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/u1d623f2/obj/arm64-v8a/libISO22133.so
+[12/20] Building CXX object CMakeFiles/ISO_object.dir/src/trajDecoder.cpp.o
+[13/20] Building CXX object CMakeFiles/ISO_objectDemo.dir/demoIsoObject.cpp.o
+In file included from /home/johan/DJI_app/util/C/isoObject/demoIsoObject.cpp:5:
+In file included from /home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:11:
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:166:15: warning: 'onEnter' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onEnter(TestObject& obj);
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:105:15: note: overridden virtual function is here
+        virtual void onEnter(TestObject&) {}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:167:15: warning: 'onExit' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onExit(TestObject& obj);
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:106:15: note: overridden virtual function is here
+        virtual void onExit(TestObject&) {}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:192:15: warning: 'onEnter' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onEnter(TestObject& obj) {this->handleEvent(obj, Events::N);}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:105:15: note: overridden virtual function is here
+        virtual void onEnter(TestObject&) {}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:198:15: warning: 'onEnter' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onEnter(TestObject& obj) {this->handleEvent(obj, Events::T);}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:105:15: note: overridden virtual function is here
+        virtual void onEnter(TestObject&) {}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/demoIsoObject.cpp:72:7: warning: 'handleAbort' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        void handleAbort() { std::cout << "Bromsa!" << std::endl;}
+             ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:83:15: note: overridden virtual function is here
+        virtual void handleAbort() { throw std::logic_error("Use of unimplemented abort handler"); }
+                     ^
+5 warnings generated.
+[14/20] Building CXX object CMakeFiles/ISO_object.dir/src/iso22133state.cpp.o
+In file included from /home/johan/DJI_app/util/C/isoObject/src/iso22133state.cpp:3:
+In file included from /home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:11:
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:166:15: warning: 'onEnter' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onEnter(TestObject& obj);
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:105:15: note: overridden virtual function is here
+        virtual void onEnter(TestObject&) {}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:167:15: warning: 'onExit' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onExit(TestObject& obj);
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:106:15: note: overridden virtual function is here
+        virtual void onExit(TestObject&) {}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:192:15: warning: 'onEnter' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onEnter(TestObject& obj) {this->handleEvent(obj, Events::N);}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:105:15: note: overridden virtual function is here
+        virtual void onEnter(TestObject&) {}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:198:15: warning: 'onEnter' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onEnter(TestObject& obj) {this->handleEvent(obj, Events::T);}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:105:15: note: overridden virtual function is here
+        virtual void onEnter(TestObject&) {}
+                     ^
+4 warnings generated.
+[15/20] Building CXX object CMakeFiles/ISO_object.dir/src/iso22133object.cpp.o
+In file included from /home/johan/DJI_app/util/C/isoObject/src/iso22133object.cpp:5:
+In file included from /home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:11:
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:166:15: warning: 'onEnter' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onEnter(TestObject& obj);
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:105:15: note: overridden virtual function is here
+        virtual void onEnter(TestObject&) {}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:167:15: warning: 'onExit' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onExit(TestObject& obj);
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:106:15: note: overridden virtual function is here
+        virtual void onExit(TestObject&) {}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:192:15: warning: 'onEnter' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onEnter(TestObject& obj) {this->handleEvent(obj, Events::N);}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:105:15: note: overridden virtual function is here
+        virtual void onEnter(TestObject&) {}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:198:15: warning: 'onEnter' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onEnter(TestObject& obj) {this->handleEvent(obj, Events::T);}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:105:15: note: overridden virtual function is here
+        virtual void onEnter(TestObject&) {}
+                     ^
+4 warnings generated.
+[16/20] Linking CXX shared library /home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/u1d623f2/obj/arm64-v8a/libISO_object.so
+[17/20] Linking CXX executable /home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/u1d623f2/obj/arm64-v8a/ISO_objectDemo
+[18/20] Swig compile isoObject.i for java
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:94: Warning 473: Returning a pointer or reference in a director method is not recommended.
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:96: Warning 473: Returning a pointer or reference in a director method is not recommended.
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:98: Warning 473: Returning a pointer or reference in a director method is not recommended.
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:100: Warning 473: Returning a pointer or reference in a director method is not recommended.
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:102: Warning 473: Returning a pointer or reference in a director method is not recommended.
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:104: Warning 473: Returning a pointer or reference in a director method is not recommended.
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:106: Warning 473: Returning a pointer or reference in a director method is not recommended.
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:108: Warning 473: Returning a pointer or reference in a director method is not recommended.
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:110: Warning 473: Returning a pointer or reference in a director method is not recommended.
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:112: Warning 473: Returning a pointer or reference in a director method is not recommended.
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:114: Warning 473: Returning a pointer or reference in a director method is not recommended.
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:222: Warning 503: Can't wrap 'operator <' unless renamed to a valid identifier.
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133object.hpp:225: Warning 503: Can't wrap 'operator >' unless renamed to a valid identifier.
+[19/20] Building CXX object CMakeFiles/isoObject_wrap.dir/CMakeFiles/isoObject_wrap.dir/isoObjectJAVA_wrap.cxx.o
+In file included from CMakeFiles/isoObject_wrap.dir/isoObjectJAVA_wrap.cxx:769:
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:166:15: warning: 'onEnter' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onEnter(TestObject& obj);
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:105:15: note: overridden virtual function is here
+        virtual void onEnter(TestObject&) {}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:167:15: warning: 'onExit' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onExit(TestObject& obj);
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:106:15: note: overridden virtual function is here
+        virtual void onExit(TestObject&) {}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:192:15: warning: 'onEnter' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onEnter(TestObject& obj) {this->handleEvent(obj, Events::N);}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:105:15: note: overridden virtual function is here
+        virtual void onEnter(TestObject&) {}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:198:15: warning: 'onEnter' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+        virtual void onEnter(TestObject& obj) {this->handleEvent(obj, Events::T);}
+                     ^
+/home/johan/DJI_app/util/C/isoObject/inc/iso22133state.hpp:105:15: note: overridden virtual function is here
+        virtual void onEnter(TestObject&) {}
+                     ^
+4 warnings generated.
+[20/20] Linking CXX shared library /home/johan/DJI_app/chalmers-drone-app/GSDemo/app/build/intermediates/cxx/Release/u1d623f2/obj/arm64-v8a/libisoObject_wrap.so
