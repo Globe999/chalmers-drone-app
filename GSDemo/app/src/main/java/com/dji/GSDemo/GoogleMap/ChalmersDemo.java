@@ -333,6 +333,7 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
         Log.e(TAG, "onSurfaceTextureAvailable");
         if (mCodecManager == null) {
             mCodecManager = new DJICodecManager(this, surface, width, height);
+            mCodecManager.enabledYuvData(true);
             mCodecManager.setYuvDataCallback(yuvHandler);
         }
     }
@@ -515,7 +516,7 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
         initUI();
         yuvHandler = new YuvHandler(this);
 
-        mReceivedVideoDataListener = new VideoFeeder.VideoDataListener() {
+        /*mReceivedVideoDataListener = new VideoFeeder.VideoDataListener() {
 
             @Override
             public void onReceive(byte[] videoBuffer, int size) {
@@ -525,6 +526,8 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
                 }
             }
         };
+
+         */
         Log.i("storlek", "res: " + VideoFeeder.getInstance().isLensDistortionCalibrationNeeded());
 
     }
@@ -1206,7 +1209,6 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
 */
 
 }
-
 
 
 
