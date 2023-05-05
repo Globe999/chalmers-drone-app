@@ -12,8 +12,11 @@ import android.util.Log;
 import android.util.Size;
 import android.view.WindowManager;
 import android.widget.Toast;
+import dji.sdk.camera.VideoFeeder;
 
 import com.dji.GSDemo.GoogleMap.customview.OverlayView;
+
+import dji.sdk.camera.VideoFeeder;
 
 public abstract class CameraActivity extends Activity
         implements OnImageAvailableListener {
@@ -22,11 +25,13 @@ public abstract class CameraActivity extends Activity
 
     private Handler handler;
     private HandlerThread handlerThread;
+    private VideoFeeder.VideoDataListener mReceivedVideoDataListener;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(null);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
 
         //To Do: Need to look in to if this needs to change
         setContentView(R.layout.activity_camera);
@@ -36,6 +41,8 @@ public abstract class CameraActivity extends Activity
         } else {
             requestPermission();
         }
+
+
     }
 
     @Override
@@ -126,9 +133,14 @@ public abstract class CameraActivity extends Activity
 
         Log.wtf("cameraConnectionFragment", String.valueOf(cameraConnectionFragment));
 
-        getFragmentManager()
+        /*getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, cameraConnectionFragment)
+                .commit();*/
+        VideoFragment videoFragment = new VideoFragment();
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, videoFragment)
                 .commit();
     }
 

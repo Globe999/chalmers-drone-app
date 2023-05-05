@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
                mButton.setEnabled(true);
                BaseProduct product = DJIDemoApplication.getProductInstance();
                FlightController flightController = ((Aircraft) product).getFlightController();
+               break;
+            case R.id.obj_detct:
+                startActivity(MainActivity.this, ObjectDetection2.class);
                 break;
             case R.id.chalmers_button:
                 System.out.println("WE GOT IT TO WORK!");
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_waypoint2).setOnClickListener(clickListener);
         findViewById(R.id.btn_maestro).setOnClickListener(clickListener);
         findViewById(R.id.chalmers_button).setOnClickListener(clickListener);
+        findViewById(R.id.obj_detct).setOnClickListener(clickListener);
 
         Button mButton = (Button)findViewById(R.id.btn_waypoint1);
         mButton.setEnabled(false);

@@ -96,4 +96,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPosition1" />
 
+    <Button
+        android:id="@+id/obj_detct"
+        android:layout_width="169dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="121dp"
+        android:layout_marginTop="100dp"
+        android:text="Object detection"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPosition1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

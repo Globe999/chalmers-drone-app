@@ -12,6 +12,8 @@ import android.util.Size;
 import android.util.TypedValue;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.dji.GSDemo.GoogleMap.deepmodel.DetectionResult;
 import com.dji.GSDemo.GoogleMap.deepmodel.MobileNetObjDetector;
 import com.dji.GSDemo.GoogleMap.customview.OverlayView;

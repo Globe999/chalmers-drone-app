@@ -123,7 +123,7 @@ import com.dji.GSDemo.GoogleMap.customview.OverlayView;
 
 
 
-public class ChalmersDemo extends FragmentActivity implements TextureView.SurfaceTextureListener, View.OnClickListener, WaypointMissionOperatorListener/*, OnImageAvailableListener*/{
+public class ChalmersDemo extends FragmentActivity implements TextureView.SurfaceTextureListener, View.OnClickListener, WaypointMissionOperatorListener{
 
     private static final int MAIN_CAMERA_INDEX = 0;
     private static final int INVAVID_INDEX = -1;
@@ -135,6 +135,8 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
     public CRSFactory crsFactory = new CRSFactory();
     public CoordinateReferenceSystem WGS84 = crsFactory.createFromParameters("WGS84", "+proj=longlat +datum=WGS84 +no_defs");
     private VideoFeeder.VideoDataListener mReceivedVideoDataListener;
+    private YuvHandler yuvHandler;
+
     View decorView;
     TextureView mVideoSurface;
     float mGimbalRoll;
@@ -147,6 +149,7 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
     private Gimbal gimbal;
     private Camera camera;
     private DJICodecManager mCodecManager;
+
     private WaypointMissionOperator waypointInstance;
     private WaypointMissionFinishedAction mFinishedAction = WaypointMissionFinishedAction.NO_ACTION;
     private WaypointMissionHeadingMode mHeadingMode = WaypointMissionHeadingMode.AUTO;
@@ -316,7 +319,7 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
         start.setOnClickListener(this);
         stop.setOnClickListener(this);
         land.setOnClickListener(this);
-
+        Log.i("storlek", "lalala");
 
         if (null != mVideoSurface) {
             mVideoSurface.setSurfaceTextureListener(this);
@@ -330,6 +333,7 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
         Log.e(TAG, "onSurfaceTextureAvailable");
         if (mCodecManager == null) {
             mCodecManager = new DJICodecManager(this, surface, width, height);
+            mCodecManager.setYuvDataCallback(yuvHandler);
         }
     }
 
@@ -444,6 +448,9 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
         }
     }
 
+
+
+
     private void initCameraAndGimbal() {
         BaseProduct product = DJIDemoApplication.getProductInstance();
         if (product != null && product.isConnected()) {
@@ -504,18 +511,28 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
         IntentFilter filter = new IntentFilter();
         filter.addAction(DJIDemoApplication.FLAG_CONNECTION_CHANGE);
 //        registerReceiver(mReceiver, filter);
-
+        Log.i("storlek", "res: " );
         initUI();
+        yuvHandler = new YuvHandler(this);
+
         mReceivedVideoDataListener = new VideoFeeder.VideoDataListener() {
+
             @Override
             public void onReceive(byte[] videoBuffer, int size) {
-                Log.wtf(TAG, "mCodecManager: "+mCodecManager.toString() + " videoBuffer: " + videoBuffer);
+                Log.i("storlek", "Storlek: " + size +"mCodecManager: "+mCodecManager.toString() + " videoBuffer: " + videoBuffer);
                 if (mCodecManager != null) {
                     mCodecManager.sendDataToDecoder(videoBuffer, size);
                 }
             }
         };
+        Log.i("storlek", "res: " + VideoFeeder.getInstance().isLensDistortionCalibrationNeeded());
+
     }
+    //@Override
+
+
+
+
     public void onExecutionUpdate(WaypointMissionExecutionEvent event) {
         // Handle execution updates here
         WaypointExecutionProgress progress = event.getProgress();
@@ -573,12 +590,14 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
 
     protected void onProductChange() {
         initPreviewer();
+
     }
 
     //For camera feed
     private void initPreviewer() {
 
         BaseProduct product = DJIDemoApplication.getProductInstance();
+        Log.i("storlek", "trololo");
 
         if (product == null || !product.isConnected()) {
             btn_drone_con.setBackgroundColor(Color.RED);
@@ -589,10 +608,13 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
                 mVideoSurface.setSurfaceTextureListener(this);
             }
             if (!product.getModel().equals(Model.UNKNOWN_AIRCRAFT)) {
+                Log.i("storlek", "hej");
                 VideoFeeder.getInstance().getPrimaryVideoFeed().addVideoDataListener(mReceivedVideoDataListener);
             }
         }
     }
+
+
 
     //For camera feed
     private void uninitPreviewer() {
