@@ -66,6 +66,7 @@ public class ObjectDetection2 extends CameraActivity implements OnImageAvailable
 
         Log.i(LOGGING_TAG, "preview width: " + previewWidth);
         Log.i(LOGGING_TAG, "preview height: " + previewHeight);
+
         // create empty bitmap
         imageBitmapForModel = Bitmap.createBitmap(MODEL_IMAGE_INPUT_SIZE, MODEL_IMAGE_INPUT_SIZE, Config.ARGB_8888);
         rgbBitmapForCameraImage = Bitmap.createBitmap(previewWidth, previewHeight, Config.ARGB_8888);

@@ -333,7 +333,7 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
         Log.e(TAG, "onSurfaceTextureAvailable");
         if (mCodecManager == null) {
             mCodecManager = new DJICodecManager(this, surface, width, height);
-            mCodecManager.enabledYuvData(true);
+            //mCodecManager.enabledYuvData(true);
             mCodecManager.setYuvDataCallback(yuvHandler);
         }
     }

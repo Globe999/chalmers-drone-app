@@ -53,11 +53,11 @@ public class YuvHandler implements DJICodecManager.YuvDataCallback {
     public void onYuvDataReceived(MediaFormat format, ByteBuffer yuvBuffer, int dataSize, int width, int height){
 
 
-        Log.i("storlek", "w: " + width + "  h: " + height);
+        Log.i("onYuvDataReceived", "MediaFormat:" + format + "  ByteBuffer:" + yuvBuffer+ "  dataSize: " + dataSize + "  w: " + width + "  h: " + height);
         Log.wtf("OnImageAvailable", "OnImageAvailable");
         Image imageFromCamera = null;
 
-        try {
+        /*try {
             imageFromCamera = reader.acquireLatestImage();
             if (imageFromCamera == null) {
                 return;
@@ -94,6 +94,8 @@ public class YuvHandler implements DJICodecManager.YuvDataCallback {
             requestRender();
             computing = false;
         });
+
+         */
     }
 
     private void preprocessImageForModel(final Image imageFromCamera) {
@@ -111,6 +113,7 @@ public class YuvHandler implements DJICodecManager.YuvDataCallback {
 
         @Override
         protected void onPostExecute(List<DetectionResult> results) {
+            /*
             Log.wtf("Results", results + "");
             overlayView.setResults(results);
 
@@ -125,6 +128,8 @@ public class YuvHandler implements DJICodecManager.YuvDataCallback {
 
             requestRender();
             computing = false;
+
+             */
         }
     }
 }

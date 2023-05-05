@@ -86,6 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/topLayout"/>
 
+
     <ImageView
         android:id="@+id/rect_iv"
         android:layout_width="150dp"
@@ -210,5 +211,17 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
+    <com.dji.GSDemo.GoogleMap.customview.AutoFitTextureView
+        android:id="@+id/texture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+    <com.dji.GSDemo.GoogleMap.customview.OverlayView
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

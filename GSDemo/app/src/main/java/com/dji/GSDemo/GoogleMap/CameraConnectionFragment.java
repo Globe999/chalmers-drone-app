@@ -79,15 +79,15 @@ public class CameraConnectionFragment extends Fragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.camera_connection_fragment, container, false);
-        //return inflater.inflate(R.layout.activity_chalmers_demo, container, false);
+        //return inflater.inflate(R.layout.camera_connection_fragment, container, false);
+        return inflater.inflate(R.layout.activity_chalmers_demo, container, false);
     }
 
     @Override
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
 
-        // Detta kan behöva ändras
-        // AutoFitTextureView är bara en enbart en texture
+        // Det finns just nu en com.dji.GSDemo.GoogleMap.customview.AutoFitTextureView som ligger i activity_camera.xml som kan behövas läggas i activity_chalmers_demo.xml
+        // Vad gör AutoFitTextureView?
 
         textureView = (AutoFitTextureView) view.findViewById(R.id.texture);
         //textureView = (AutoFitTextureView) view.findViewById(R.id.video_previewer_surface);

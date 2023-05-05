@@ -33,8 +33,10 @@ public abstract class CameraActivity extends Activity
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 
-        //To Do: Need to look in to if this needs to change
+        // Denna behöver troligtvis ändras till ChalmersDemo istället
+        // Är det denna som visar layouten? För då finns det redan på ChalmersDemo
         setContentView(R.layout.activity_camera);
+        //setContentView(R.layout.activity_chalmers_demo);
 
         if (hasPermission()) {
             setFragment();
@@ -136,12 +138,14 @@ public abstract class CameraActivity extends Activity
         /*getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, cameraConnectionFragment)
-                .commit();*/
+                .commit();
         VideoFragment videoFragment = new VideoFragment();
         getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, videoFragment)
                 .commit();
+
+         */
     }
 
     public void requestRender() {
