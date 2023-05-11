@@ -49,6 +49,7 @@ import org.locationtech.proj4j.CoordinateTransformFactory;
 import org.locationtech.proj4j.ProjCoordinate;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -149,6 +150,7 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
     private Gimbal gimbal;
     private Camera camera;
     private DJICodecManager mCodecManager;
+
 
     private WaypointMissionOperator waypointInstance;
     private WaypointMissionFinishedAction mFinishedAction = WaypointMissionFinishedAction.NO_ACTION;
@@ -323,10 +325,8 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
 
         if (null != mVideoSurface) {
             mVideoSurface.setSurfaceTextureListener(this);
-
         }
     }
-
 
     //    @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -334,7 +334,7 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
         if (mCodecManager == null) {
             mCodecManager = new DJICodecManager(this, surface, width, height);
             //mCodecManager.enabledYuvData(true);
-            mCodecManager.setYuvDataCallback(yuvHandler);
+            //mCodecManager.setYuvDataCallback(yuvHandler);
         }
     }
 
@@ -528,6 +528,7 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
         };
 
          */
+
         Log.i("storlek", "res: " + VideoFeeder.getInstance().isLensDistortionCalibrationNeeded());
 
     }
@@ -612,7 +613,7 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
             }
             if (!product.getModel().equals(Model.UNKNOWN_AIRCRAFT)) {
                 Log.i("storlek", "hej");
-                VideoFeeder.getInstance().getPrimaryVideoFeed().addVideoDataListener(mReceivedVideoDataListener);
+                //VideoFeeder.getInstance().getPrimaryVideoFeed().addVideoDataListener(mReceivedVideoDataListener);
             }
         }
     }
@@ -625,7 +626,7 @@ public class ChalmersDemo extends FragmentActivity implements TextureView.Surfac
         camera = DJIDemoApplication.getProductInstance().getCamera();
         if (camera != null) {
             // Reset the callback
-            VideoFeeder.getInstance().getPrimaryVideoFeed().addVideoDataListener(null);
+            //VideoFeeder.getInstance().getPrimaryVideoFeed().addVideoDataListener(null);
         }
     }
 

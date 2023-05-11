@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dji.GSDemo.GoogleMap.deepmodel.DetectionResult;
@@ -30,6 +31,7 @@ public class YuvHandler implements DJICodecManager.YuvDataCallback {
     private static String LOGGING_TAG = MainActivity.class.getName();
     private Context context;
 
+    private ImageView imageView;
     public YuvHandler(Context context){
         this.context = context;
         try {
@@ -53,11 +55,18 @@ public class YuvHandler implements DJICodecManager.YuvDataCallback {
     public void onYuvDataReceived(MediaFormat format, ByteBuffer yuvBuffer, int dataSize, int width, int height){
 
 
-        Log.i("onYuvDataReceived", "MediaFormat:" + format + "  ByteBuffer:" + yuvBuffer+ "  dataSize: " + dataSize + "  w: " + width + "  h: " + height);
+        Log.i("onYuvDataReceived", "MediaFormat:" + format + "  ByteBuffer:" + yuvBuffer + "  dataSize: " + dataSize + "  w: " + width + "  h: " + height);
         Log.wtf("OnImageAvailable", "OnImageAvailable");
+        /*
+        yuvBuffer.array();
+        rgbBitmapForCameraImage.setPixels(ImageUtils.convertYUVToARGB(yuvBuffer, width, height),
+                0, width, 0, 0, width, height);
+
+        new Canvas(imageBitmapForModel).drawBitmap(rgbBitmapForCameraImage, imageTransformMatrix, null);
         Image imageFromCamera = null;
 
-        /*try {
+
+        try {
             imageFromCamera = reader.acquireLatestImage();
             if (imageFromCamera == null) {
                 return;
@@ -95,7 +104,7 @@ public class YuvHandler implements DJICodecManager.YuvDataCallback {
             computing = false;
         });
 
-         */
+    */
     }
 
     private void preprocessImageForModel(final Image imageFromCamera) {
